@@ -1,14 +1,15 @@
 %define soversion      25
 %define module_version 37
+%define baseline 0.8
 
 Name:           folks
 Version:        0.8.0
-Release:        1.1
+Release:        0
 Summary:        Library to create metacontacts from multiple sources
 License:        LGPL-2.1+
 Group:          System/Libraries
 Url:            http://telepathy.freedesktop.org/wiki/Folks
-Source:         http://download.gnome.org/sources/folks/0.8/%{name}-%{version}.tar.xz
+Source:         http://download.gnome.org/sources/folks/${baseline}/%{name}-%{version}.tar.xz
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  intltool >= 0.50.0
 BuildRequires:  readline-devel
@@ -115,6 +116,7 @@ Telepathy connection managers) to create metacontacts.
 %setup -q
 
 %build
+%autogen
 %configure \
     --enable-vala \
     --disable-static \
@@ -150,7 +152,7 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 
 %files -n libfolks
 %defattr(-, root, root)
-%doc AUTHORS ChangeLog COPYING NEWS README
+%license COPYING
 %{_libdir}/libfolks.so.%{soversion}*
 %dir %{_libdir}/folks
 %dir %{_libdir}/folks/%{module_version}
