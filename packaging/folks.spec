@@ -30,7 +30,7 @@ Telepathy connection managers) to create metacontacts.
 Summary:        Library to create metacontacts from multiple sources
 Group:          System/Libraries
 Requires:       libfolks-data >= %{version}
-Recommends:     %{name}-lang
+Recommends:     %{name}-locale
 
 %description -n libfolks
 libfolks is a library that aggregates people from multiple sources (eg,
@@ -101,7 +101,18 @@ Requires:       typelib-Folks = %{version}
 libfolks is a library that aggregates people from multiple sources (eg,
 Telepathy connection managers) to create metacontacts.
 
-%lang_package
+
+%package locale 
+Summary: Translations and Locale for package libfolks
+Group: System/Localization
+Requires: libfolks = %{version} 
+Provides: libfolks-lang-all = %{version} 
+BuildArch:  noarch 
+
+%description locale
+This package provides translations for package %{name}.
+
+
 %prep
 %setup -q
 
@@ -182,3 +193,7 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 %{_datadir}/vala/vapi/folks.*
 %{_datadir}/vala/vapi/folks-libsocialweb.*
 %{_datadir}/vala/vapi/folks-telepathy.*
+
+%files locale -f  %{name}.lang
+%defattr(-,root,root,-)
+
