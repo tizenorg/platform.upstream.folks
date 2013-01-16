@@ -6,11 +6,11 @@ Name:           folks
 Version:        0.8.0
 Release:        0
 Summary:        Library to create metacontacts from multiple sources
-License:        LGPL-2.1+
+License:        LGPLv2.1+
 Group:          System/Libraries
 Url:            http://telepathy.freedesktop.org/wiki/Folks
-Source:         http://download.gnome.org/sources/folks/${baseline}/%{name}-%{version}.tar.xz
-BuildRequires:  gobject-introspection-devel
+Source:         http://download.gnome.org/sources/folks/%{baseline}/%{name}-%{version}.tar.xz
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  intltool >= 0.50.0
 BuildRequires:  readline-devel
 BuildRequires:  vala >= 0.17.6
@@ -112,12 +112,12 @@ libfolks is a library that aggregates people from multiple sources (eg,
 Telepathy connection managers) to create metacontacts.
 
 
-%package locale 
+%package locale
 Summary: Translations and Locale for package libfolks
 Group: System/Localization
-Requires: libfolks = %{version} 
-Provides: libfolks-lang-all = %{version} 
-BuildArch:  noarch 
+Requires: libfolks = %{version}
+Provides: libfolks-lang-all = %{version}
+BuildArch:  noarch
 
 %description locale
 This package provides translations for package %{name}.
@@ -128,10 +128,12 @@ This package provides translations for package %{name}.
 
 %build
 %autogen
+
 %configure \
-    --enable-vala \
-    --disable-static \
-    --enable-eds-backend
+ --enable-vala \
+ --disable-static \
+ --enable-eds-backend
+
 %__make %{?_smp_mflags} V=1
 
 %install
