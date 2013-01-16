@@ -7,7 +7,7 @@ Version:        0.8.0
 Release:        0
 Summary:        Library to create metacontacts from multiple sources
 License:        LGPL-2.1+
-Group:		System/Libraries
+Group:          System/Libraries
 Url:            http://telepathy.freedesktop.org/wiki/Folks
 Source:         http://download.gnome.org/sources/folks/${baseline}/%{name}-%{version}.tar.xz
 BuildRequires:  gobject-introspection-devel
@@ -17,6 +17,8 @@ BuildRequires:  vala >= 0.17.6
 BuildRequires:  pkgconfig(dbus-glib-1)
 BuildRequires:  pkgconfig(gee-1.0)
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.32.0
+BuildRequires:  pkgconfig(libebook-1.2) >= 3.5.3.1
+BuildRequires:  pkgconfig(libedataserver-1.2) >= 3.5.3.1
 BuildRequires:  pkgconfig(libsocialweb-client) >= 0.25.20
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(telepathy-glib) >= 0.19.0
@@ -39,8 +41,7 @@ Telepathy connection managers) to create metacontacts.
 %package -n libfolks-data
 Summary:        Library to create metacontacts from multiple sources -- Data files
 Group:          System/Libraries
-Requires(post): glib2-tools
-Requires(postun): glib2-tools
+%glib2_gsettings_schema_requires
 
 %description -n libfolks-data
 libfolks is a library that aggregates people from multiple sources (eg,
@@ -57,6 +58,15 @@ libfolks is a library that aggregates people from multiple sources (eg,
 Telepathy connection managers) to create metacontacts.
 
 This package provides the GObject Introspection bindings for libfolks.
+
+%package -n libfolks-eds
+Summary:        Library to create metacontacts from multiple sources -- EDS Backend
+Group:          System/Libraries
+Supplements:    packageand(libfolks:evolution-data-server)
+
+%description -n libfolks-eds
+libfolks is a library that aggregates people from multiple sources (eg,
+Telepathy connection managers) to create metacontacts.
 
 %package -n libfolks-libsocialweb
 Summary:        Library to create metacontacts from multiple sources -- libsocialweb Backend
@@ -117,12 +127,11 @@ This package provides translations for package %{name}.
 %setup -q
 
 %build
-%autogen \
+%autogen
+%configure \
     --enable-vala \
     --disable-static \
-    --disable-eds-backend \
-    --enable-telepathy-backend \
-    --enable-socialweb-backend
+    --enable-eds-backend
 %__make %{?_smp_mflags} V=1
 
 %install
@@ -139,6 +148,10 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 
 %postun -n libfolks-data
 %glib2_gsettings_schema_postun
+
+%post -n libfolks-eds -p /sbin/ldconfig
+
+%postun -n libfolks-eds -p /sbin/ldconfig
 
 %post -n libfolks-libsocialweb -p /sbin/ldconfig
 
@@ -167,6 +180,12 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 %defattr(-, root, root)
 %{_libdir}/girepository-1.0/Folks-0.6.typelib
 
+%files -n libfolks-eds
+%defattr(-, root, root)
+%{_libdir}/libfolks-eds.so.%{soversion}*
+%dir %{_libdir}/folks/%{module_version}/backends/eds
+%{_libdir}/folks/%{module_version}/backends/eds/eds.so
+
 %files -n libfolks-libsocialweb
 %defattr(-, root, root)
 %{_libdir}/libfolks-libsocialweb.so.%{soversion}*
@@ -191,6 +210,7 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/gir-1.0/Folks-0.6.gir
 %{_datadir}/vala/vapi/folks.*
+%{_datadir}/vala/vapi/folks-eds.*
 %{_datadir}/vala/vapi/folks-libsocialweb.*
 %{_datadir}/vala/vapi/folks-telepathy.*
 
