@@ -1,3 +1,6 @@
+* Wed Jan 16 2013 Philippe Coval <philippe.coval@eurogiciel.fr> submit/devel/20130115.175958@80eed6e
+- Enabled evolution-data-server backend again
+
 * Tue Jan 15 2013 Corentin Lecouvey <corentin.lecouvey@eurogiciel.fr> submit/devel/20130115.153615@1da4891
 - Fix: lang package dependency
 
