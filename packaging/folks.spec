@@ -131,6 +131,7 @@ This package provides translations for package %{name}.
 %autogen \
  --enable-vala \
  --disable-static \
+ --disable-fatal-warnings \
  --enable-eds-backend
 
 %__make %{?_smp_mflags} V=1
