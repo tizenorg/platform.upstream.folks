@@ -6,7 +6,7 @@ Name:           folks
 Version:        0.8.0
 Release:        0
 Summary:        Library to create metacontacts from multiple sources
-License:        LGPLv2.1+
+License:        LGPL-2.1+
 Group:          System/Libraries
 Url:            http://telepathy.freedesktop.org/wiki/Folks
 Source:         http://download.gnome.org/sources/folks/%{baseline}/%{name}-%{version}.tar.xz
@@ -32,6 +32,9 @@ Telepathy connection managers) to create metacontacts.
 Summary:        Library to create metacontacts from multiple sources
 Group:          System/Libraries
 Requires:       libfolks-data >= %{version}
+Requires(post):   /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
+
 Recommends:     %{name}-locale
 
 %description -n libfolks
@@ -43,6 +46,7 @@ Summary:        Library to create metacontacts from multiple sources -- Data fil
 Group:          System/Libraries
 Requires(post): glib2-tools
 Requires(postun): glib2-tools
+
 
 %description -n libfolks-data
 libfolks is a library that aggregates people from multiple sources (eg,
@@ -64,6 +68,8 @@ This package provides the GObject Introspection bindings for libfolks.
 Summary:        Library to create metacontacts from multiple sources -- EDS Backend
 Group:          System/Libraries
 Supplements:    packageand(libfolks:evolution-data-server)
+Requires(post):   /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
 
 %description -n libfolks-eds
 libfolks is a library that aggregates people from multiple sources (eg,
@@ -73,6 +79,8 @@ Telepathy connection managers) to create metacontacts.
 Summary:        Library to create metacontacts from multiple sources -- libsocialweb Backend
 Group:          System/Libraries
 Supplements:    packageand(libfolks:libsocialweb)
+Requires(post):   /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
 
 %description -n libfolks-libsocialweb
 libfolks is a library that aggregates people from multiple sources (eg,
@@ -81,6 +89,8 @@ Telepathy connection managers) to create metacontacts.
 %package -n libfolks-telepathy
 Summary:        Library to create metacontacts from multiple sources -- Telepathy Backend
 Group:          System/Libraries
+Requires(post):   /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
 
 %description -n libfolks-telepathy
 libfolks is a library that aggregates people from multiple sources (eg,
@@ -88,9 +98,10 @@ Telepathy connection managers) to create metacontacts.
 
 %package tools
 Summary:        Library to create metacontacts from multiple sources -- Tools
-Group:          Development/Libraries/GNOME
+Group:          Development/Libraries
 # the folks-import tool is useful for old pidgin users
 Supplements:    packageand(libfolks1:pidgin)
+
 
 %description tools
 libfolks is a library that aggregates people from multiple sources (eg,
@@ -101,7 +112,7 @@ metacontacts.
 
 %package devel
 Summary:        Library to create metacontacts from multiple sources -- Development Files
-Group:          Development/Libraries/GNOME
+Group:          Development/Libraries
 Requires:       libfolks = %{version}
 Requires:       libfolks-eds = %{version}
 Requires:       libfolks-libsocialweb = %{version}
@@ -128,11 +139,13 @@ This package provides translations for package %{name}.
 %setup -q
 
 %build
+
 %autogen \
  --enable-vala \
  --disable-static \
+ --enable-eds-backend \
  --disable-fatal-warnings \
- --enable-eds-backend
+ #eol
 
 %__make %{?_smp_mflags} V=1
 
