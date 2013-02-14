@@ -1,3 +1,6 @@
+* Thu Feb 14 2013 Philippe Coval <philippe.coval@eurogiciel.fr> accepted/trunk/20130116.141824@b753b74
+- Workaround : Add --disable-fatal-warning
+
 * Wed Jan 16 2013 Philippe Coval <philippe.coval@eurogiciel.fr> submit/devel/20130115.175958@80eed6e
 - Enabled evolution-data-server backend again
 
