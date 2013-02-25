@@ -3,7 +3,7 @@
 %define baseline 0.8
 
 Name:           folks
-Version:        0.8.0
+Version:        0.9.1
 Release:        0
 Summary:        Library to create metacontacts from multiple sources
 License:        LGPL-2.1+
