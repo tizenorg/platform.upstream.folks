@@ -1,6 +1,6 @@
 %define soversion      25
-%define module_version 37
-%define baseline 0.8
+%define module_version 38
+%define baseline 0.9
 
 Name:           folks
 Version:        0.9.1
@@ -14,10 +14,10 @@ BuildRequires:  intltool >= 0.50.0
 BuildRequires:  readline-devel
 BuildRequires:  vala >= 0.17.6
 BuildRequires:  pkgconfig(dbus-glib-1)
-BuildRequires:  pkgconfig(gee-1.0)
+BuildRequires:  pkgconfig(gee-0.8) >= 0.8.4
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.32.0
-BuildRequires:  pkgconfig(gobject-introspection-1.0)
-BuildRequires:  pkgconfig(libebook-1.2) >= 3.5.3.1
+BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.30
+BuildRequires:  pkgconfig(libebook-1.2) >= 3.7.90
 BuildRequires:  pkgconfig(libedataserver-1.2) >= 3.5.3.1
 BuildRequires:  pkgconfig(libsocialweb-client) >= 0.25.20
 BuildRequires:  pkgconfig(libxml-2.0)
@@ -32,9 +32,6 @@ Telepathy connection managers) to create metacontacts.
 Summary:        Library to create metacontacts from multiple sources
 Group:          System/Libraries
 Requires:       libfolks-data >= %{version}
-Requires(post):   /sbin/ldconfig
-Requires(postun): /sbin/ldconfig
-
 Recommends:     %{name}-locale
 
 %description -n libfolks
@@ -44,9 +41,6 @@ Telepathy connection managers) to create metacontacts.
 %package -n libfolks-data
 Summary:        Library to create metacontacts from multiple sources -- Data files
 Group:          System/Libraries
-Requires(post): glib2-tools
-Requires(postun): glib2-tools
-
 
 %description -n libfolks-data
 libfolks is a library that aggregates people from multiple sources (eg,
@@ -68,8 +62,6 @@ This package provides the GObject Introspection bindings for libfolks.
 Summary:        Library to create metacontacts from multiple sources -- EDS Backend
 Group:          System/Libraries
 Supplements:    packageand(libfolks:evolution-data-server)
-Requires(post):   /sbin/ldconfig
-Requires(postun): /sbin/ldconfig
 
 %description -n libfolks-eds
 libfolks is a library that aggregates people from multiple sources (eg,
@@ -79,18 +71,23 @@ Telepathy connection managers) to create metacontacts.
 Summary:        Library to create metacontacts from multiple sources -- libsocialweb Backend
 Group:          System/Libraries
 Supplements:    packageand(libfolks:libsocialweb)
-Requires(post):   /sbin/ldconfig
-Requires(postun): /sbin/ldconfig
 
 %description -n libfolks-libsocialweb
+libfolks is a library that aggregates people from multiple sources (eg,
+Telepathy connection managers) to create metacontacts.
+
+%package -n libfolks-ofono
+Summary:        Library to create metacontacts from multiple sources -- ofono Backend
+Group:          System/Libraries
+Supplements:    packageand(libfolks:ofono)
+
+%description -n libfolks-ofono
 libfolks is a library that aggregates people from multiple sources (eg,
 Telepathy connection managers) to create metacontacts.
 
 %package -n libfolks-telepathy
 Summary:        Library to create metacontacts from multiple sources -- Telepathy Backend
 Group:          System/Libraries
-Requires(post):   /sbin/ldconfig
-Requires(postun): /sbin/ldconfig
 
 %description -n libfolks-telepathy
 libfolks is a library that aggregates people from multiple sources (eg,
@@ -206,6 +203,11 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 %{_libdir}/libfolks-libsocialweb.so.%{soversion}*
 %dir %{_libdir}/folks/%{module_version}/backends/libsocialweb
 %{_libdir}/folks/%{module_version}/backends/libsocialweb/libsocialweb.so
+
+%files -n libfolks-ofono
+%defattr(-, root, root)
+%dir %{_libdir}/folks/%{module_version}/backends/ofono
+%{_libdir}/folks/%{module_version}/backends/ofono/ofono.so
 
 %files -n libfolks-telepathy
 %defattr(-, root, root)
