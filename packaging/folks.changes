@@ -1,3 +1,7 @@
+* Wed Feb 27 2013 Corentin Lecouvey <corentin.lecouvey@eurogiciel.fr> submit/devel/20130225.134623@37f68f9
+- Backend ofono is added
+- Bump to 0.9.1 
+
 * Thu Feb 14 2013 Philippe Coval <philippe.coval@eurogiciel.fr> accepted/trunk/20130116.141824@b753b74
 - Workaround : Add --disable-fatal-warning
 
