@@ -41,6 +41,8 @@ Telepathy connection managers) to create metacontacts.
 %package -n libfolks-data
 Summary:        Library to create metacontacts from multiple sources -- Data files
 Group:          System/Libraries
+Requires(post):   glib2-tools
+Requires(postun): glib2-tools
 
 %description -n libfolks-data
 libfolks is a library that aggregates people from multiple sources (eg,
