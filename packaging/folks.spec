@@ -22,7 +22,7 @@ BuildRequires:  pkgconfig(libedataserver-1.2) >= 3.5.3.1
 BuildRequires:  pkgconfig(libsocialweb-client) >= 0.25.20
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(telepathy-glib) >= 0.19.0
-BuildRequires:  pkgconfig(zeitgeist-1.0) >= 0.3.14
+BuildRequires:  pkgconfig(zeitgeist-2.0)
 
 %description
 libfolks is a library that aggregates people from multiple sources (eg,
