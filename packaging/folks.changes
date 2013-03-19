@@ -1,3 +1,6 @@
+* Tue Mar 19 2013 Corentin Lecouvey <corentin.lecouvey@eurogiciel.fr> accepted/trunk/20130301.201853@f04b508
+- update to zeitgeist-2.0 build dependency
+
 * Thu Feb 28 2013 Corentin Lecouvey <corentin.lecouvey@eurogiciel.fr> submit/trunk/20130227.150154@a0e4003
 - add glib2-tools required dependency
 
