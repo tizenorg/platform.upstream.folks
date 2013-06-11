@@ -1,5 +1,5 @@
 %define soversion      25
-%define module_version 38
+%define module_version 39
 %define baseline 0.9
 
 Name:           folks
