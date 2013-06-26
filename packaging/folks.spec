@@ -146,6 +146,7 @@ This package provides translations for package %{name}.
  --disable-fatal-warnings \
  #eol
 
+PKG_CONFIG_PATH=./folks \
 %__make %{?_smp_mflags} V=1
 
 %install
@@ -192,6 +193,10 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 
 %files -n typelib-Folks
 %defattr(-, root, root)
+%{_libdir}/girepository-1.0/FolksEds-0.6.typelib
+%{_libdir}/girepository-1.0/FolksLibsocialweb-0.6.typelib
+%{_libdir}/girepository-1.0/FolksTelepathy-0.6.typelib
+%{_libdir}/girepository-1.0/TpLowlevel-0.6.typelib
 %{_libdir}/girepository-1.0/Folks-0.6.typelib
 
 %files -n libfolks-eds
@@ -228,6 +233,10 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/gir-1.0/Folks-0.6.gir
+%{_datadir}/gir-1.0/FolksEds-0.6.gir
+%{_datadir}/gir-1.0/FolksLibsocialweb-0.6.gir
+%{_datadir}/gir-1.0/FolksTelepathy-0.6.gir
+%{_datadir}/gir-1.0/TpLowlevel-0.6.gir
 %{_datadir}/vala/vapi/folks.*
 %{_datadir}/vala/vapi/folks-eds.*
 %{_datadir}/vala/vapi/folks-libsocialweb.*
