@@ -368,7 +368,7 @@ dist_gir_DATA = $(GIRS)
 MAINTAINERCLEANFILES += $(dist_gir_DATA)
 
 typelibdir = $(libdir)/girepository-1.0
-nodist_typelib_DATA = $(GIRS:.gir=.typelib)
+nodist_typelib_DATA = $(filter-out TpLowlevel-$(API_VERSION_DOT).typelib,$(dist_gir_DATA:.gir=.typelib))
 
 CLEANFILES += $(nodist_typelib_DATA)
 endif
