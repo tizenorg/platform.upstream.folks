@@ -393,7 +393,7 @@ dist_noinst_DATA += \
 dist_gir_DATA = $(filter-out TpLowlevel-$(API_VERSION_DOT).gir,$(INTROSPECTION_GIRS))
 
 typelibdir = $(libdir)/girepository-1.0
-nodist_typelib_DATA = $(dist_gir_DATA:.gir=.typelib)
+nodist_typelib_DATA = $(filter-out TpLowlevel-$(API_VERSION_DOT).typelib,$(dist_gir_DATA:.gir=.typelib))
 
 CLEANFILES += $(nodist_typelib_DATA)
 MAINTAINERCLEANFILES += \
