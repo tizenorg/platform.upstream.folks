@@ -1,3 +1,6 @@
+* Fri Jun 28 2013 Markus Lehtonen <markus.lehtonen@linux.intel.com> accepted/trunk/20130627.164013@bce3770
+- Exclude TpLowlevel typelib file
+
 * Wed Jun 26 2013 Philippe Coval <philippe.coval@eurogiciel.fr> submit/trunk/20130626.153904@15d2fc7
 - Bump to 0.9.3
   Bug-Tizen: TZPC-3345 (Integrate new Folks 0.9.3 release)

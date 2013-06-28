@@ -196,7 +196,6 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 %{_libdir}/girepository-1.0/FolksEds-0.6.typelib
 %{_libdir}/girepository-1.0/FolksLibsocialweb-0.6.typelib
 %{_libdir}/girepository-1.0/FolksTelepathy-0.6.typelib
-%{_libdir}/girepository-1.0/TpLowlevel-0.6.typelib
 %{_libdir}/girepository-1.0/Folks-0.6.typelib
 
 %files -n libfolks-eds
