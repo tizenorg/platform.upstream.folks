@@ -2,6 +2,11 @@
 %define module_version 39
 %define baseline 0.9
 
+%bcond_with folks_socialweb
+%bcond_with folks_telepathy
+%bcond_with folks_zeitgeist
+%bcond_with folks_ofono
+
 Name:           folks
 Version:        0.9.3
 Release:        0
@@ -19,10 +24,16 @@ BuildRequires:  pkgconfig(gobject-2.0) >= 2.32.0
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.30
 BuildRequires:  pkgconfig(libebook-1.2) >= 3.7.90
 BuildRequires:  pkgconfig(libedataserver-1.2) >= 3.5.3.1
+%if %{with folks_socialweb}
 BuildRequires:  pkgconfig(libsocialweb-client) >= 0.25.20
+%endif
 BuildRequires:  pkgconfig(libxml-2.0)
+%if %{with folks_telepathy}
 BuildRequires:  pkgconfig(telepathy-glib) >= 0.19.0
+%endif
+%if %{with folks_zeitgeist}
 BuildRequires:  pkgconfig(zeitgeist-2.0)
+%endif
 
 %description
 libfolks is a library that aggregates people from multiple sources (eg,
@@ -69,6 +80,7 @@ Supplements:    packageand(libfolks:evolution-data-server)
 libfolks is a library that aggregates people from multiple sources (eg,
 Telepathy connection managers) to create metacontacts.
 
+%if %{with folks_socialweb}
 %package -n libfolks-libsocialweb
 Summary:        Library to create metacontacts from multiple sources -- libsocialweb Backend
 Group:          System/Libraries
@@ -77,7 +89,9 @@ Supplements:    packageand(libfolks:libsocialweb)
 %description -n libfolks-libsocialweb
 libfolks is a library that aggregates people from multiple sources (eg,
 Telepathy connection managers) to create metacontacts.
+%endif
 
+%if %{with folks_ofono}
 %package -n libfolks-ofono
 Summary:        Library to create metacontacts from multiple sources -- ofono Backend
 Group:          System/Libraries
@@ -86,7 +100,9 @@ Supplements:    packageand(libfolks:ofono)
 %description -n libfolks-ofono
 libfolks is a library that aggregates people from multiple sources (eg,
 Telepathy connection managers) to create metacontacts.
+%endif
 
+%if %{with folks_telepathy}
 %package -n libfolks-telepathy
 Summary:        Library to create metacontacts from multiple sources -- Telepathy Backend
 Group:          System/Libraries
@@ -94,6 +110,7 @@ Group:          System/Libraries
 %description -n libfolks-telepathy
 libfolks is a library that aggregates people from multiple sources (eg,
 Telepathy connection managers) to create metacontacts.
+%endif
 
 %package tools
 Summary:        Library to create metacontacts from multiple sources -- Tools
@@ -114,8 +131,12 @@ Summary:        Library to create metacontacts from multiple sources -- Developm
 Group:          Development/Libraries
 Requires:       libfolks = %{version}
 Requires:       libfolks-eds = %{version}
+%if %{with folks_socialweb}
 Requires:       libfolks-libsocialweb = %{version}
+%endif
+%if %{with folks_telepathy}
 Requires:       libfolks-telepathy = %{version}
+%endif
 Requires:       typelib-Folks = %{version}
 
 %description devel
@@ -143,10 +164,26 @@ This package provides translations for package %{name}.
  --enable-vala \
  --disable-static \
  --enable-eds-backend \
+%if %{with folks_ofono}
+ --enable-ofono-backend \
+%else
+ --disable-ofono-backend \
+%endif
+%if %{with folks_telepathy}
+ --enable-telepathy-backend \
+%else
+ --disable-telepathy-backend \
+%endif
+%if %{with folks_socialweb}
+ --enable-socialweb-backend \
+%else
+ --disable-socialweb-backend \
+%endif
  --disable-fatal-warnings \
+ --disable-tests \
  #eol
 
-PKG_CONFIG_PATH=./folks \
+PKG_CONFIG_PATH=`pwd`/folks \
 %__make %{?_smp_mflags} V=1
 
 %install
@@ -168,13 +205,17 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 
 %postun -n libfolks-eds -p /sbin/ldconfig
 
+%if %{with folks_socialweb}
 %post -n libfolks-libsocialweb -p /sbin/ldconfig
 
 %postun -n libfolks-libsocialweb -p /sbin/ldconfig
+%endif
 
+%if %{with folks_telepathy}
 %post -n libfolks-telepathy -p /sbin/ldconfig
 
 %postun -n libfolks-telepathy -p /sbin/ldconfig
+%endif
 
 %files -n libfolks
 %defattr(-, root, root)
@@ -194,8 +235,12 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 %files -n typelib-Folks
 %defattr(-, root, root)
 %{_libdir}/girepository-1.0/FolksEds-0.6.typelib
+%if %{with folks_socialweb}
 %{_libdir}/girepository-1.0/FolksLibsocialweb-0.6.typelib
+%endif
+%if %{with folks_telepathy}
 %{_libdir}/girepository-1.0/FolksTelepathy-0.6.typelib
+%endif
 %{_libdir}/girepository-1.0/Folks-0.6.typelib
 
 %files -n libfolks-eds
@@ -204,22 +249,28 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 %dir %{_libdir}/folks/%{module_version}/backends/eds
 %{_libdir}/folks/%{module_version}/backends/eds/eds.so
 
+%if %{with folks_socialweb}
 %files -n libfolks-libsocialweb
 %defattr(-, root, root)
 %{_libdir}/libfolks-libsocialweb.so.%{soversion}*
 %dir %{_libdir}/folks/%{module_version}/backends/libsocialweb
 %{_libdir}/folks/%{module_version}/backends/libsocialweb/libsocialweb.so
+%endif
 
+%if %{with folks_ofono}
 %files -n libfolks-ofono
 %defattr(-, root, root)
 %dir %{_libdir}/folks/%{module_version}/backends/ofono
 %{_libdir}/folks/%{module_version}/backends/ofono/ofono.so
+%endif
 
+%if %{with folks_telepathy}
 %files -n libfolks-telepathy
 %defattr(-, root, root)
 %{_libdir}/libfolks-telepathy.so.%{soversion}*
 %dir %{_libdir}/folks/%{module_version}/backends/telepathy
 %{_libdir}/folks/%{module_version}/backends/telepathy/telepathy.so
+%endif
 
 %files tools
 %defattr(-, root, root)
@@ -233,13 +284,17 @@ find %{buildroot}%{_libdir} -name '*.la' -type f -delete -print
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/gir-1.0/Folks-0.6.gir
 %{_datadir}/gir-1.0/FolksEds-0.6.gir
+%if %{with folks_socialweb}
 %{_datadir}/gir-1.0/FolksLibsocialweb-0.6.gir
+%{_datadir}/vala/vapi/folks-libsocialweb.*
+%endif
+%if %{with folks_telepathy}
 %{_datadir}/gir-1.0/FolksTelepathy-0.6.gir
+%{_datadir}/vala/vapi/folks-telepathy.*
 %{_datadir}/gir-1.0/TpLowlevel-0.6.gir
+%endif
 %{_datadir}/vala/vapi/folks.*
 %{_datadir}/vala/vapi/folks-eds.*
-%{_datadir}/vala/vapi/folks-libsocialweb.*
-%{_datadir}/vala/vapi/folks-telepathy.*
 
 %files locale -f  %{name}.lang
 %defattr(-,root,root,-)
