@@ -8,7 +8,7 @@
 %bcond_with folks_ofono
 
 Name:           folks
-Version:        0.9.3
+Version:        0.9.6
 Release:        0
 Summary:        Library to create metacontacts from multiple sources
 License:        LGPL-2.1+
