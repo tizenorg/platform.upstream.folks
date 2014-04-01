@@ -1,5 +1,5 @@
 %define soversion      25
-%define module_version 39
+%define module_version 41
 %define baseline 0.9
 
 %bcond_with folks_socialweb
@@ -8,7 +8,7 @@
 %bcond_with folks_ofono
 
 Name:           folks
-Version:        0.9.3
+Version:        0.9.5
 Release:        0
 Summary:        Library to create metacontacts from multiple sources
 License:        LGPL-2.1+
