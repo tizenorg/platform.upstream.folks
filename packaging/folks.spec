@@ -1,5 +1,5 @@
 %define soversion      25
-%define module_version 39
+%define module_version 41
 %define baseline 0.9
 
 %bcond_with folks_socialweb
