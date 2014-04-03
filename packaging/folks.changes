@@ -1,3 +1,7 @@
+* Thu Apr 03 2014 Patrick Ohly <patrick.ohly@intel.com> FOLKS_0_9_5@ac3cd07
+- Bump to 0.9.5
+- cherry-pick upstream vala compatibility fix (c9a9472927a)
+
 * Fri Jun 28 2013 Markus Lehtonen <markus.lehtonen@linux.intel.com> accepted/trunk/20130627.164013@bce3770
 - Exclude TpLowlevel typelib file
 
